@@ -26,11 +26,11 @@ A Loja Online em React é uma aplicação web de comércio eletrônico desenvolv
 Para executar o projeto localmente, siga estas etapas:
 
 1. **Iniciar um repositório:**
-git init 
-git status
-git add .
-git remote add origin <URL do repositório>
-git push -u origin master
+- git init 
+- git status
+- git add .
+- git remote add origin <URL do repositório>
+- git push -u origin master
  
 
 2. **Clonar o Repositório:**
