@@ -1,15 +1,12 @@
 import React from 'react';
 
-interface FormProps {
+interface InputProps {
   text?: string;
-  label?: string;
   password?: boolean;
-  expand?: boolean;
   value?: string;
 }
 
-export const Form = ({ text, label, password, value }: FormProps) => {
-  const inputId = `custom-input-${label ?? 'default'}`;
+export const Input = ({ text, password, value }: InputProps) => {
   const styleForm = {
     display: 'flex',
     border: '1px solid #C5C5C5',
@@ -23,7 +20,7 @@ export const Form = ({ text, label, password, value }: FormProps) => {
   };
   return (
     <div>
-      <label htmlFor={inputId}>{text}</label>
+      <label>{text}</label>
       <input type={password ? 'password' : 'text'} value={value} style={styleForm} />
     </div>
   );

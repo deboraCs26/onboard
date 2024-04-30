@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface SeparatorProps {
-  size?: 'small' | 'medium' | 'XSmall' | 'large' | 'XLarge';
+  size?: 'small' | 'medium' | 'xSmall' | 'large' | 'xLarge';
   horizontal?: boolean;
 }
 
@@ -10,16 +10,25 @@ export const Separator = ({ size, horizontal }: SeparatorProps) => {
 
   let height;
 
-  if (size === 'small') {
-    height = '8px';
-  } else if (size === 'large') {
-    height = '24px';
-  } else if (size === 'XSmall') {
-    height = '4px';
-  } else if (size === 'XLarge') {
-    height = '32px';
-  } else {
-    height = '16px';
+  switch (size) {
+    case 'small':
+      height = '8px';
+      break;
+    case 'medium':
+      height = '16px';
+      break;
+    case 'xSmall':
+      height = '4px';
+      break;
+    case 'large':
+      height = '24px';
+      break;
+    case 'xLarge':
+      height = '32px';
+      break;
+    default:
+      height = '16px';
+      break;
   }
 
   return <div style={{ [dimension]: height }} />;
