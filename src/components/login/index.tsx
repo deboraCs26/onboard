@@ -3,22 +3,17 @@ import { H1 } from '../typography.ts/h1';
 import { Input } from '../input/input';
 import { Button } from '../button';
 import { Separator } from '../separator';
+import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 
-export const Login = () => {
+interface LoginProps {
+  onSuccess?: () => void;
+}
+
+export const Login = ({ onSuccess }: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-
-  const isValidEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const isValidPassword = (password: string) => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/;
-    return passwordRegex.test(password);
-  };
 
   const validateFields = () => {
     setEmailError('');
@@ -40,8 +35,8 @@ export const Login = () => {
   };
   const handleSubmit = () => {
     validateFields();
-    if (!emailError && !passwordError) {
-      console.log('Formulário enviado com sucesso!');
+    if (!emailError && !passwordError && onSuccess) {
+      onSuccess();
     }
   };
 
