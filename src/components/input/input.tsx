@@ -20,7 +20,7 @@ export const Input = ({ text, password, value }: InputProps) => {
   };
   return (
     <div>
-      <label>{text}</label>
+      {text && <label>{text}</label>}
       <input type={password ? 'password' : 'text'} value={value} style={styleForm} />
     </div>
   );

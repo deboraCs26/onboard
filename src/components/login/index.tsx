@@ -1,7 +1,7 @@
 import React from 'react';
 import { H1 } from '../typography.ts/h1';
 import { Input } from '../input/input';
-import { Button } from '../button/button';
+import { Button } from '../button';
 import { Separator } from '../separator';
 
 export const Login = () => {
