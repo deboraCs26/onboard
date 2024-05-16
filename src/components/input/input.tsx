@@ -4,6 +4,8 @@ interface InputProps {
   text?: string;
   password?: boolean;
   value?: string;
+  error?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = ({ text, password, value }: InputProps) => {

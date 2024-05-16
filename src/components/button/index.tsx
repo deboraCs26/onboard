@@ -2,9 +2,10 @@ import React from 'react';
 
 interface ButtonProps {
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
-export const Button = ({ children }: ButtonProps) => {
+export const Button = ({ children, onClick }: ButtonProps) => {
   const buttonConstatsStyle = {
     fontFamily: 'Source Sans 3',
     color: ' #FFFFFF',
@@ -21,5 +22,9 @@ export const Button = ({ children }: ButtonProps) => {
     borderRadius: '10px',
     cursor: 'pointer',
   };
-  return <button style={styleButton}>{children}</button>;
+  return (
+    <button style={styleButton} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
