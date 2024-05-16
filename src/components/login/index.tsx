@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { H1 } from '../typography.ts/h1';
-import { Input } from '../input/input';
+import { Input } from '../input';
 import { Button } from '../button';
 import { Separator } from '../separator';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
