@@ -1,8 +1,10 @@
 import React from 'react';
-import './App.css';
+import { Login } from './components/login';
 
-function App() {
-  return <div className="App">Hello World</div>;
+export default function App() {
+  return (
+    <div>
+      <Login />
+    </div>
+  );
 }
-
-export default App;
