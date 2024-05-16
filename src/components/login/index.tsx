@@ -16,14 +16,12 @@ export const Login = ({ onSuccess }: LoginProps) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const [loginMutation] = useMutation<LoginData>(LOGIN_MUTATION);
 
   const validateFields = () => {
     setEmailError('');
     setPasswordError('');
-    setErrorMessage('');
 
     if (!email.trim()) {
       setEmailError('Campo obrigatório.');
@@ -80,7 +78,6 @@ export const Login = ({ onSuccess }: LoginProps) => {
       <div>
         <Button onClick={handleSubmit}>Entrar</Button>
       </div>
-      {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
 };
