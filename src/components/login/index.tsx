@@ -17,7 +17,7 @@ export const Login = ({ onSuccess }: LoginProps) => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const [loginMutation] = useMutation<LoginData>(LOGIN_MUTATION);
+  const [loginMutation, { loading }] = useMutation<LoginData>(LOGIN_MUTATION);
 
   const validateFields = () => {
     setEmailError('');
@@ -77,6 +77,7 @@ export const Login = ({ onSuccess }: LoginProps) => {
       <Separator />
       <div>
         <Button onClick={handleSubmit}>Entrar</Button>
+        {loading && <span>Carregando...</span>}
       </div>
     </div>
   );
