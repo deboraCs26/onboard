@@ -1,21 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router/browser-router/router';
 
 const client = new ApolloClient({
   uri: 'https://template-onboarding-node-sjz6wnaoia-uc.a.run.app/graphql',
   cache: new InMemoryCache(),
 });
 
-root.render(
+ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
   </ApolloProvider>,
+  document.getElementById('root'),
 );
 
 reportWebVitals();
