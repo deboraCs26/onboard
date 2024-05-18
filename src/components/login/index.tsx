@@ -4,6 +4,8 @@ import { Input } from '../input';
 import { Button } from '../button';
 import { Separator } from '../separator';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
+import { LOGIN_MUTATION, LoginData } from '../../domain/login';
+import { useMutation } from '@apollo/client';
 
 interface LoginProps {
   onSuccess?: () => void;
@@ -14,6 +16,8 @@ export const Login = ({ onSuccess }: LoginProps) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const [loginMutation] = useMutation<LoginData>(LOGIN_MUTATION);
 
   const validateFields = () => {
     setEmailError('');
@@ -33,10 +37,20 @@ export const Login = ({ onSuccess }: LoginProps) => {
       setPasswordError('A senha deve ter pelo menos um dígito e uma letra.');
     }
   };
+
   const handleSubmit = () => {
     validateFields();
-    if (!emailError && !passwordError && onSuccess) {
-      onSuccess();
+    if (!emailError && !passwordError) {
+      loginMutation({ variables: { data: { email, password } } })
+        .then((register) => {
+          if (register.data && register.data.login && register.data.login.token) {
+            localStorage.setItem('token', register.data.login.token);
+            if (onSuccess) onSuccess();
+          }
+        })
+        .catch((error) => {
+          console.error('Erro na mutação de login:', error);
+        });
     }
   };
 
