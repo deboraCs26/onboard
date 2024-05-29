@@ -6,6 +6,7 @@ import { Separator } from '../separator';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { LOGIN_MUTATION, LoginData } from '../../domain/login';
 import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginProps {
   onSuccess?: () => void;
@@ -17,6 +18,8 @@ export const Login = ({ onSuccess }: LoginProps) => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const [loginMutation] = useMutation<LoginData>(LOGIN_MUTATION);
 
@@ -49,6 +52,7 @@ export const Login = ({ onSuccess }: LoginProps) => {
           if (register.data && register.data.login && register.data.login.token) {
             localStorage.setItem('token', register.data.login.token);
             if (onSuccess) onSuccess();
+            navigate('/listUser');
           }
         })
         .catch((error) => {
