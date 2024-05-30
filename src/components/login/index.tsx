@@ -16,8 +16,9 @@ export const Login = ({ onSuccess }: LoginProps) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const [loginMutation, { loading }] = useMutation<LoginData>(LOGIN_MUTATION);
+  const [loginMutation] = useMutation<LoginData>(LOGIN_MUTATION);
 
   const validateFields = () => {
     setEmailError('');
@@ -41,14 +42,17 @@ export const Login = ({ onSuccess }: LoginProps) => {
   const handleSubmit = () => {
     validateFields();
     if (!emailError && !passwordError) {
+      setLoading(true);
       loginMutation({ variables: { data: { email, password } } })
         .then((register) => {
+          setLoading(false);
           if (register.data && register.data.login && register.data.login.token) {
             localStorage.setItem('token', register.data.login.token);
             if (onSuccess) onSuccess();
           }
         })
         .catch((error) => {
+          setLoading(false);
           console.error('Erro na mutação de login:', error);
         });
     }
@@ -76,8 +80,9 @@ export const Login = ({ onSuccess }: LoginProps) => {
       </div>
       <Separator />
       <div>
-        <Button onClick={handleSubmit}>Entrar</Button>
-        {loading && <span>Carregando...</span>}
+        <Button onClick={handleSubmit} disabled={loading} style={loading ? { backgroundColor: '#ffff56' } : {}}>
+          {loading ? 'Carregando...' : 'Entrar'}
+        </Button>
       </div>
     </div>
   );
