@@ -1,5 +1,5 @@
 import React from 'react';
-import { UsersPage } from '../../../components/users-list';
+import { UsersPage } from '../../../components/user-list/index-user';
 
 export function HomePage() {
   return (
