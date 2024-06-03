@@ -1,13 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGetUsers } from '../../domain/users/index-get-users';
 import { UserListPage } from '.';
 import { H1 } from '../typography.ts/h1';
+import { Button } from '../button';
+
+const styleButtonPagination = {
+  width: '30%',
+  display: 'flex',
+  justifyContent: 'space-evenly',
+  marginTop: '20px',
+};
+const stylePage: React.CSSProperties = {
+  padding: '12px',
+  textAlign: 'center',
+};
 
 export const UsersPage = () => {
+  const perPage = 5;
+  const [page, setPage] = useState<number>(1);
   const token = localStorage.getItem('token') || undefined;
-  const { loading, error, data } = useGetUsers({ token });
+  const { loading, error, data, loadMore } = useGetUsers({ token, perPage });
 
-  const userData = data ?? { users: { nodes: [] } };
+  useEffect(() => {
+    const offset = (page - 1) * perPage;
+    loadMore(offset);
+  }, [page, perPage, loadMore]);
+
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (data && data.users.pageInfo.hasNextPage) {
+      setPage(page + 1);
+    }
+  };
 
   if (error) {
     return <p>Error: {error.message}</p>;
@@ -20,10 +49,19 @@ export const UsersPage = () => {
   return (
     <div>
       <H1>Lista de usuários</H1>
-      {userData?.users?.nodes?.length > 0 &&
-        userData.users.nodes.map((user) => (
+      {data &&
+        data.users.nodes.map((user) => (
           <UserListPage key={user.id} userName={user.name} userEmail={user.email} userId={user.id} />
         ))}
+      <div style={styleButtonPagination}>
+        <Button onClick={handlePreviousPage} disabled={page <= 1}>
+          Anterior
+        </Button>
+        <div style={stylePage}>Página {page}</div>
+        <Button onClick={handleNextPage} disabled={!data?.users.pageInfo.hasNextPage}>
+          Próximo
+        </Button>
+      </div>
     </div>
   );
 };
