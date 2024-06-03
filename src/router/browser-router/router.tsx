@@ -9,7 +9,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: '/listUser',
+    path: '/usersList',
     element: <HomePage />,
   },
 ]);
