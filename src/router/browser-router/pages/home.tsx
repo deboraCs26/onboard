@@ -1,10 +1,10 @@
 import React from 'react';
-import { UsersPage } from '../../../components/users-list';
+import { UserList } from '../../../components/user-list';
 
 export function HomePage() {
   return (
     <div>
-      <UsersPage />
+      <UserList />
     </div>
   );
 }
