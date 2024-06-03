@@ -3,9 +3,10 @@ import React from 'react';
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-export const Button = ({ children, onClick }: ButtonProps) => {
+export const Button = ({ children, onClick, disabled }: ButtonProps) => {
   const buttonConstatsStyle = {
     fontFamily: 'Source Sans 3',
     color: ' #FFFFFF',
@@ -23,7 +24,7 @@ export const Button = ({ children, onClick }: ButtonProps) => {
     cursor: 'pointer',
   };
   return (
-    <button style={styleButton} onClick={onClick}>
+    <button style={styleButton} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
