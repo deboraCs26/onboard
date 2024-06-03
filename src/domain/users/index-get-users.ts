@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_USERS, UsersData } from '../../domain/users';
+import { GET_USERS, UsersData } from '.';
 
 interface UserQueryOptions {
   token?: string;
