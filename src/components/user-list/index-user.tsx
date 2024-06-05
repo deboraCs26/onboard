@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useGetUsers } from '../../domain/users/index-get-users';
 import { UserListPage } from '.';
 import { H1 } from '../typography.ts/h1';
-import { UserNode } from '../../domain/users';
 
 export const UsersPage = () => {
-  const [users, setUsers] = useState<UserNode[]>([]);
   const token = localStorage.getItem('token') || undefined;
   const { loading, error, data } = useGetUsers({ token });
 
-  useEffect(() => {
-    if (data && data.users && data.users.nodes) {
-      setUsers(data.users.nodes);
-    }
-  }, [data]);
+  const userData = data ?? { users: { nodes: [] } };
 
   if (error) {
     return <p>Error: {error.message}</p>;
@@ -26,9 +20,10 @@ export const UsersPage = () => {
   return (
     <div>
       <H1>Lista de usuários</H1>
-      {users.map((user) => (
-        <UserListPage key={user.id} userName={user.name} userEmail={user.email} userId={user.id} />
-      ))}
+      {userData?.users?.nodes?.length > 0 &&
+        userData.users.nodes.map((user) => (
+          <UserListPage key={user.id} userName={user.name} userEmail={user.email} userId={user.id} />
+        ))}
     </div>
   );
 };
