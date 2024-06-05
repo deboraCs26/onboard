@@ -3,9 +3,11 @@ import React from 'react';
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
+  style?: React.CSSProperties;
 }
 
-export const Button = ({ children, onClick }: ButtonProps) => {
+export const Button = ({ children, onClick, disabled, style }: ButtonProps) => {
   const buttonConstatsStyle = {
     fontFamily: 'Source Sans 3',
     color: ' #FFFFFF',
@@ -16,14 +18,16 @@ export const Button = ({ children, onClick }: ButtonProps) => {
   const styleButton = {
     ...buttonConstatsStyle,
     width: '100%',
-    backgroundColor: '#2196F3',
+    backgroundColor: disabled ? '#cccccc' : '#2196F3',
     height: '48px',
     border: 'none',
     borderRadius: '10px',
-    cursor: 'pointer',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    ...style,
   };
+
   return (
-    <button style={styleButton} onClick={onClick}>
+    <button style={styleButton} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
