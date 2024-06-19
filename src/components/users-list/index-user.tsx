@@ -6,7 +6,7 @@ interface UserProps {
   userId: string;
 }
 
-export const UserListPage = ({ userName, userEmail, userId }: UserProps) => {
+export const UserList = ({ userName, userEmail, userId }: UserProps) => {
   return (
     <div key={userId}>
       <h3>{userName}</h3>

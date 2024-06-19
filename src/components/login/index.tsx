@@ -52,7 +52,7 @@ export const Login = ({ onSuccess }: LoginProps) => {
           if (register.data && register.data.login && register.data.login.token) {
             localStorage.setItem('token', register.data.login.token);
             if (onSuccess) onSuccess();
-            navigate('/listUser');
+            navigate('/usersList');
           }
         })
         .catch((error) => {
