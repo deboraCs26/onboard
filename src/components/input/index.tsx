@@ -2,13 +2,14 @@ import React from 'react';
 
 interface InputProps {
   text?: string;
+  type?: string;
   password?: boolean;
   value?: string;
   error?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ text, password, value, onChange, error }: InputProps) => {
+export const Input = ({ text, type = 'text', value, onChange, error }: InputProps) => {
   const styleForm = {
     display: 'flex',
     border: '1px solid #C5C5C5',
@@ -23,7 +24,7 @@ export const Input = ({ text, password, value, onChange, error }: InputProps) =>
   return (
     <div>
       {text && <label>{text}</label>}
-      <input type={password ? 'password' : 'text'} value={value} style={styleForm} onChange={onChange} />
+      <input value={value} style={styleForm} onChange={onChange} type={type} />
       {!!error && <p> {error}</p>}
     </div>
   );
