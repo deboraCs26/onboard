@@ -72,6 +72,7 @@ export const Login = ({ onSuccess }: LoginProps) => {
         <Separator />
         <Input
           text="Senha"
+          type="password"
           password
           value={password}
           onChange={(e) => setPassword(e.target.value)}
