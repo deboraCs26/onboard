@@ -43,7 +43,14 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
 
   const { loading, createUser, error } = UseCreateUser({ token });
 
-  const validateFields = () => {
+  const validateFields = (
+    name: string,
+    email: string,
+    birthDate: string,
+    phone: string,
+    role: string,
+    password: string,
+  ) => {
     let isValid = true;
     const newErrors = {
       name: '',
@@ -109,31 +116,27 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
     return isValid;
   };
 
-  const handleSubmit = async () => {
-    const isValid = validateFields();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const isValid = validateFields(name, email, birthDate, phone, role, password);
     if (isValid) {
       const userData = { email, name, birthDate, phone, role, password };
-      try {
-        const register = await createUser({ variables: { data: userData } });
-        console.log('Register response:', register);
-        if (register?.data?.createUser) {
-          if (onSuccess) onSuccess();
-          navigate('/usersList');
-        }
-      } catch (error) {
-        console.error('Error during user creation:', error);
-      }
+      createUser({ variables: { data: userData } })
+        .then((register) => {
+          console.log('Resposta do registro:', register);
+          if (register?.data?.createUser) {
+            if (onSuccess) onSuccess();
+            navigate('/users');
+          }
+        })
+        .catch((error) => {
+          console.error('Erro durante a criação do usuário:', error);
+        });
     }
   };
 
   return (
-    <form
-      style={styleForm}
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
-      }}
-    >
+    <form style={styleForm} onSubmit={handleSubmit}>
       <h1>Adicionar Usuário</h1>
       <Input text="Nome" value={name} onChange={(e) => setName(e.target.value)} error={errors.name} />
       <Input text="Email" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email} />
