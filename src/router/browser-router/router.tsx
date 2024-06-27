@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '../../App';
 import { HomePage } from './pages/home';
 import { AddCreateUser } from '../../components/add-user';
+import { UserDetailsPage } from '../../components/user-details';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: '/AddUser',
     element: <AddCreateUser />,
+  },
+  {
+    path: '/users/:userId',
+    element: <UserDetailsPage />,
   },
 ]);
 
