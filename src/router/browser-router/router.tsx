@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     element: <AddCreateUser />,
   },
   {
-    path: '/users/:userId',
+    path: '/usersList/:userId',
     element: <UserDetailsPage />,
   },
 ]);

@@ -10,7 +10,7 @@ export const UserDetailsPage = () => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate('/users');
+    navigate('/usersList');
   };
 
   if (!userId) {

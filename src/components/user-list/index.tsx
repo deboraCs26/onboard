@@ -12,7 +12,7 @@ export const UserListPage = ({ userName, userEmail, userId }: UserProps) => {
 
   const handleUserClick = () => {
     if (userId) {
-      navigate(`/users/${userId}`);
+      navigate(`/usersList/${userId}`);
     }
   };
 
