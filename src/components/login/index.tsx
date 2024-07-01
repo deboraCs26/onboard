@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { H1 } from '../typography.ts/h1';
 import { Input } from '../input';
 import { Button } from '../button';
 import { Separator } from '../separator';
@@ -7,6 +6,8 @@ import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { LOGIN_MUTATION, LoginData } from '../../domain/login';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { LoginContainer, StyledButton } from './style';
+import { H1 } from '../../utils/typography/Heading1/style';
 
 interface LoginProps {
   onSuccess?: () => void;
@@ -58,31 +59,24 @@ export const Login = ({ onSuccess }: LoginProps) => {
     }
   };
 
-  const styleContainer = {
-    display: 'grid',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  };
-
   return (
-    <div style={styleContainer}>
+    <LoginContainer>
       <H1>Bem-vindo(a) à TaqTile!</H1>
-      <div>
-        <Input text="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} error={emailError} />
-        <Separator />
-        <Input
-          text="Senha"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          error={passwordError}
-        />
-      </div>
+      <Input text="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} error={emailError} />
       <Separator />
-      <div>
-        <Button onClick={handleSubmit}>Entrar</Button>
-        {loading && <span>Carregando...</span>}
-      </div>
-    </div>
+      <Input
+        text="Senha"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        error={passwordError}
+      />
+      <Separator />
+      <StyledButton>
+        <Button onClick={handleSubmit} disabled={loading} expand>
+          {loading ? 'Carregando...' : 'Entrar'}
+        </Button>
+      </StyledButton>
+    </LoginContainer>
   );
 };

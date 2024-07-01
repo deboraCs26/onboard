@@ -4,16 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '../input';
 import { UseCreateUser } from '../../domain/creat-user/authentication-user';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
+import { LoginContainer, StyledButton } from '../login/style';
+import { Caption } from '../../utils/typography/caption/style';
 
 interface AddUserProps {
   onSuccess?: () => void;
 }
-
-const styleForm: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  width: '20%',
-};
 
 export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
   const [name, setName] = useState('');
@@ -136,7 +132,7 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
   };
 
   return (
-    <form style={styleForm} onSubmit={handleSubmit}>
+    <LoginContainer onSubmit={handleSubmit}>
       <h1>Adicionar Usuário</h1>
       <Input text="Nome" value={name} onChange={(e) => setName(e.target.value)} error={errors.name} />
       <Input text="Email" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email} />
@@ -156,10 +152,12 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
         onChange={(e) => setPassword(e.target.value)}
         error={errors.password}
       />
-      <div style={{ width: '50%', margin: '12px' }}>
-        <Button disabled={loading}>Adicionar Usuário</Button>
-        {error && <p style={{ color: 'red' }}>Erro: {error.message}</p>}
-      </div>
-    </form>
+      <StyledButton>
+        <Button disabled={loading} expand>
+          Adicionar Usuário
+        </Button>
+        {error && <Caption>Erro: {error.message}</Caption>}
+      </StyledButton>
+    </LoginContainer>
   );
 };

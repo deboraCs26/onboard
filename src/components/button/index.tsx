@@ -1,31 +1,17 @@
 import React from 'react';
+import { ButtonContainer } from './style';
 
-interface ButtonProps {
+export interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  expand?: boolean;
 }
 
-export const Button = ({ children, onClick, disabled }: ButtonProps) => {
-  const buttonConstatsStyle = {
-    fontFamily: 'Source Sans 3',
-    color: ' #FFFFFF',
-    fontSize: '16px',
-    fontWeight: '600',
-  };
-
-  const styleButton = {
-    ...buttonConstatsStyle,
-    width: '100%',
-    backgroundColor: '#2196F3',
-    height: '48px',
-    border: 'none',
-    borderRadius: '10px',
-    cursor: 'pointer',
-  };
+export const Button = ({ children, onClick, disabled, expand }: ButtonProps) => {
   return (
-    <button style={styleButton} onClick={onClick} disabled={disabled}>
+    <ButtonContainer onClick={onClick} disabled={disabled} expand={expand}>
       {children}
-    </button>
+    </ButtonContainer>
   );
 };
