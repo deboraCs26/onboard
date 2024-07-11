@@ -6,10 +6,11 @@ interface InputProps {
   password?: boolean;
   value?: string;
   error?: string;
+  name?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ text, type = 'text', value, onChange, error }: InputProps) => {
+export const Input = ({ text, type = 'text', value, onChange, error, name }: InputProps) => {
   const styleForm = {
     display: 'flex',
     border: '1px solid #C5C5C5',
@@ -24,7 +25,7 @@ export const Input = ({ text, type = 'text', value, onChange, error }: InputProp
   return (
     <div>
       {text && <label>{text}</label>}
-      <input value={value} style={styleForm} onChange={onChange} type={type} />
+      <input value={value} style={styleForm} onChange={onChange} type={type} name={name} />
       {!!error && <p> {error}</p>}
     </div>
   );

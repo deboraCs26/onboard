@@ -13,14 +13,36 @@ const styleForm: React.CSSProperties = {
   width: '20%',
 };
 
+interface Values {
+  name: string;
+  email: string;
+  birthDate: string;
+  phone: string;
+  role: string;
+  password: string;
+}
+
+interface Errors {
+  name: string;
+  email: string;
+  birthDate: string;
+  phone: string;
+  role: string;
+  password: string;
+  invalidBirthDate: string;
+}
+
 export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [phone, setPhone] = useState('');
-  const [role, setRole] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({
+  const [values, setValues] = useState<Values>({
+    name: '',
+    email: '',
+    birthDate: '',
+    phone: '',
+    role: '',
+    password: '',
+  });
+
+  const [errors, setErrors] = useState<Errors>({
     name: '',
     email: '',
     birthDate: '',
@@ -30,16 +52,14 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
     invalidBirthDate: '',
   });
 
-  const validateFields = (
-    name: string,
-    email: string,
-    birthDate: string,
-    phone: string,
-    role: string,
-    password: string,
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setValues((prevValues) => ({ ...prevValues, [name]: value }));
+  };
+
+  const validateFields = (values: Values) => {
     let isValid = true;
-    const newErrors = {
+    const newErrors: Errors = {
       name: '',
       email: '',
       birthDate: '',
@@ -49,45 +69,45 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
       invalidBirthDate: '',
     };
 
-    if (!name.trim()) {
+    if (!values.name.trim()) {
       newErrors.name = 'Campo obrigatório.';
       isValid = false;
     }
 
-    if (!email.trim()) {
+    if (!values.email.trim()) {
       newErrors.email = 'Campo obrigatório.';
       isValid = false;
-    } else if (!isValidEmail(email)) {
+    } else if (!isValidEmail(values.email)) {
       newErrors.email = 'O email informado é inválido.';
       isValid = false;
     }
 
-    if (!phone.trim()) {
+    if (!values.phone.trim()) {
       newErrors.phone = 'Campo obrigatório.';
       isValid = false;
     }
 
-    if (!role.trim()) {
+    if (!values.role.trim()) {
       newErrors.role = 'Campo obrigatório.';
       isValid = false;
     }
 
-    if (!password.trim()) {
+    if (!values.password.trim()) {
       newErrors.password = 'Campo obrigatório.';
       isValid = false;
-    } else if (password.length < 7) {
+    } else if (values.password.length < 7) {
       newErrors.password = 'A senha deve ter pelo menos 7 caracteres.';
       isValid = false;
-    } else if (!isValidPassword(password)) {
+    } else if (!isValidPassword(values.password)) {
       newErrors.password = 'A senha deve ter pelo menos um dígito e uma letra.';
       isValid = false;
     }
 
-    if (!birthDate.trim()) {
+    if (!values.birthDate.trim()) {
       newErrors.birthDate = 'Campo obrigatório.';
       isValid = false;
     } else {
-      const birthDateObj = new Date(birthDate);
+      const birthDateObj = new Date(values.birthDate);
       const minDate = new Date('1900-01-01');
       const today = new Date();
       if (birthDateObj < minDate) {
@@ -105,9 +125,9 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isValid = validateFields(name, email, birthDate, phone, role, password);
+    const isValid = validateFields(values);
     if (isValid) {
-      const userData = { email, name, birthDate, phone, role, password };
+      const userData = { ...values };
       console.log('Dados do usuário:', userData);
       if (onSuccess) onSuccess();
     }
@@ -116,22 +136,31 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
   return (
     <form onSubmit={handleSubmit} style={styleForm}>
       <h1>Adicionar Usuário</h1>
-      <Input text="Nome" value={name} onChange={(e) => setName(e.target.value)} error={errors.name} />
-      <Input text="Email" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email} />
+      <Input text="Nome" name="name" value={values.name} onChange={handleChange} error={errors.name} />
+      <Input text="Email" name="email" value={values.email} onChange={handleChange} error={errors.email} />
       <Input
         text="Data de Nascimento"
         type="date"
-        value={birthDate}
-        onChange={(e) => setBirthDate(e.target.value)}
+        name="birthDate"
+        value={values.birthDate}
+        onChange={handleChange}
         error={errors.birthDate || errors.invalidBirthDate}
       />
-      <Input text="Telefone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} error={errors.phone} />
-      <Input text="Tipo de Usuário" value={role} onChange={(e) => setRole(e.target.value)} error={errors.role} />
+      <Input
+        text="Telefone"
+        type="tel"
+        name="phone"
+        value={values.phone}
+        onChange={handleChange}
+        error={errors.phone}
+      />
+      <Input text="Tipo de Usuário" name="role" value={values.role} onChange={handleChange} error={errors.role} />
       <Input
         text="Senha"
         type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        name="password"
+        value={values.password}
+        onChange={handleChange}
         error={errors.password}
       />
       <div style={{ width: '50%', margin: '12px' }}>
