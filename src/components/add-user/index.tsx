@@ -127,8 +127,6 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
     e.preventDefault();
     const isValid = validateFields(values);
     if (isValid) {
-      const userData = { ...values };
-      console.log('Dados do usuário:', userData);
       if (onSuccess) onSuccess();
     }
   };
