@@ -6,7 +6,7 @@ import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { LOGIN_MUTATION, LoginData } from '../../domain/login';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { LoginContainer, StyledButton } from './style';
+import { ButtonContainer, LoginContainer } from './style';
 import { H1 } from '../../utils/typography/Heading1/style';
 
 interface LoginProps {
@@ -72,11 +72,11 @@ export const Login = ({ onSuccess }: LoginProps) => {
         error={passwordError}
       />
       <Separator />
-      <StyledButton>
+      <ButtonContainer>
         <Button onClick={handleSubmit} disabled={loading} expand>
           {loading ? 'Carregando...' : 'Entrar'}
         </Button>
-      </StyledButton>
+      </ButtonContainer>
     </LoginContainer>
   );
 };

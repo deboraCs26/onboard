@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ButtonProps } from './';
 
-export const ButtonContainer = styled.button<ButtonProps>`
+export const StyledButton = styled.button<ButtonProps>`
   font-family: 'Source Sans 3';
   font-size: 16px;
   font-weight: 600;
@@ -12,8 +12,8 @@ export const ButtonContainer = styled.button<ButtonProps>`
   border: none;
   border-radius: 10px;
   cursor: ${(props) => (props.disabled ? 'wait' : 'pointer')};
-  
-   @media screen and (max-width: 480px) {
+
+  @media screen and (max-width: 480px) {
     margin-bottom: 16px;
   }
 `;

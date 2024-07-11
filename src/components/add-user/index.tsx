@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '../input';
 import { UseCreateUser } from '../../domain/creat-user/authentication-user';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
-import { LoginContainer, StyledButton } from '../login/style';
+import { ButtonContainer, LoginContainer } from '../login/style';
 import { Caption } from '../../utils/typography/caption/style';
 
 interface AddUserProps {
@@ -152,12 +152,12 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
         onChange={(e) => setPassword(e.target.value)}
         error={errors.password}
       />
-      <StyledButton>
+      <ButtonContainer>
         <Button disabled={loading} expand>
           Adicionar Usuário
         </Button>
         {error && <Caption>Erro: {error.message}</Caption>}
-      </StyledButton>
+      </ButtonContainer>
     </LoginContainer>
   );
 };
