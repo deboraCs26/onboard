@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useGetUsers } from '../../domain/users/index-get-users';
 import { UserListPage } from '.';
-import { H1 } from '../typography.ts/h1';
 import { Button } from '../button';
+import { H1 } from '../../utils/typography/Heading1/style';
 
 const styleButtonPagination = {
   width: '30%',
